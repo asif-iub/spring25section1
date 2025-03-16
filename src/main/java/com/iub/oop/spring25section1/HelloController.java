@@ -2,9 +2,15 @@ package com.iub.oop.spring25section1;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +27,6 @@ public class HelloController {
     private TableView<User> tableView;
     @FXML
     private TableColumn<User, String> passwordCol;
-
-    private List<User> userList = new ArrayList();
     @FXML
     private TextField usernameTF;
     @FXML
@@ -32,6 +36,8 @@ public class HelloController {
     @FXML
     private Label summaryLabel;
 
+    private List<User> userList;
+
     public void initialize() {
         usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
         passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
@@ -39,6 +45,11 @@ public class HelloController {
 
         for (int i = 18; i <= 80; i++)
             ageCB.getItems().add(i);
+
+        UserManager manager = new UserManager();
+        userList = manager.getUserList();
+
+        tableView.getItems().addAll(userList);
     }
 
     @FXML
@@ -121,5 +132,12 @@ public class HelloController {
         }
         summaryLabel.setText("Average password length is " + (double) sumLength / userList.size());
 
+    }
+
+    @FXML
+    public void logout(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
     }
 }
