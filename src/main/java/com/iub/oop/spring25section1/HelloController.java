@@ -11,8 +11,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HelloController {
     @FXML
@@ -36,8 +34,6 @@ public class HelloController {
     @FXML
     private Label summaryLabel;
 
-    private List<User> userList;
-
     public void initialize() {
         usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
         passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
@@ -46,10 +42,7 @@ public class HelloController {
         for (int i = 18; i <= 80; i++)
             ageCB.getItems().add(i);
 
-        UserManager manager = new UserManager();
-        userList = manager.getUserList();
-
-        tableView.getItems().addAll(userList);
+        tableView.getItems().addAll(UserManager.userList);
     }
 
     @FXML
@@ -59,7 +52,7 @@ public class HelloController {
             int maxAge = Integer.parseInt(filterAge.getText());
 
             tableView.getItems().clear();
-            for (User u : userList) {
+            for (User u : UserManager.userList) {
                 if (u.getAge() < maxAge)
                     tableView.getItems().add(u);
             }
@@ -80,7 +73,7 @@ public class HelloController {
             return;
         }
 
-        for (User u : userList) {
+        for (User u : UserManager.userList) {
             if (u.getUsername().equals(username)) {
                 messageLabel.setText("Username is not unique");
                 return;
@@ -88,14 +81,14 @@ public class HelloController {
         }
 
         User u = new User(username, password, age);
-        userList.add(u);
+        UserManager.userList.add(u);
         tableView.getItems().add(u);
     }
 
     @FXML
     public void resetFilter(ActionEvent actionEvent) {
         tableView.getItems().clear();
-        tableView.getItems().addAll(userList);
+        tableView.getItems().addAll(UserManager.userList);
     }
 
     @FXML
@@ -127,16 +120,18 @@ public class HelloController {
 
         // average password length
         int sumLength = 0;
-        for (User u: userList) {
+        for (User u: UserManager.userList) {
             sumLength += u.getPassword().length();
         }
-        summaryLabel.setText("Average password length is " + (double) sumLength / userList.size());
+        summaryLabel.setText("Average password length is " + (double) sumLength / UserManager.userList.size());
 
     }
 
     @FXML
     public void logout(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent root = FXMLLoader.load(
+                getClass().getResource("login.fxml")
+        );
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
     }

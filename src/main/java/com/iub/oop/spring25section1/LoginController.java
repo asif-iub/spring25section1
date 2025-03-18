@@ -21,25 +21,25 @@ public class LoginController {
     @javafx.fxml.FXML
     private Label messageLabel;
 
-    private List<User> userList;
-
     @javafx.fxml.FXML
     public void initialize() {
-        UserManager manager = new UserManager();
-        userList = manager.getUserList();
     }
 
     @javafx.fxml.FXML
     public void login(ActionEvent actionEvent) throws IOException {
-        for (User u: userList) {
+        for (User u: UserManager.userList) {
             if (usernameField.getText().equals(u.getUsername())
                     && passwordField.getText().equals(u.getPassword())) {
                 messageLabel.setText("Log in successful!");
                 // Now switch to the other scene
-                Parent root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
+                Parent root = FXMLLoader.load(
+                        getClass().getResource("hello-view.fxml")
+                );
+                Scene scene = new Scene(root);
                 Stage stage = (Stage) messageLabel.getScene().getWindow();
-                stage.setScene(new Scene(root));
-
+//                Stage stage = new Stage();
+                stage.setScene(scene);
+//                stage.show();
                 return;
             }
         }
