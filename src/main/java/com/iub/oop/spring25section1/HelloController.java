@@ -129,10 +129,6 @@ public class HelloController {
 
     @FXML
     public void logout(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(
-                getClass().getResource("login.fxml")
-        );
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
+        SceneSwitcher.switchTo("login");
     }
 }

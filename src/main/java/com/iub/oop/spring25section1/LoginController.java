@@ -32,13 +32,14 @@ public class LoginController {
                     && passwordField.getText().equals(u.getPassword())) {
                 messageLabel.setText("Log in successful!");
                 // Now switch to the other scene
-                Parent root = FXMLLoader.load(
-                        getClass().getResource("hello-view.fxml")
-                );
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) messageLabel.getScene().getWindow();
-//                Stage stage = new Stage();
-                stage.setScene(scene);
+                SceneSwitcher.switchTo("dashboard");
+//                Parent root = FXMLLoader.load(
+//                        getClass().getResource("dashboard.fxml")
+//                );
+//                Scene scene = new Scene(root);
+//                Stage stage = (Stage) messageLabel.getScene().getWindow();
+////                Stage stage = new Stage();
+//                stage.setScene(scene);
 //                stage.show();
                 return;
             }

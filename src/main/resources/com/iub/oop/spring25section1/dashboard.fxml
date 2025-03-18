@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iub.oop.spring25section1.DashboardController">
+   <children>
+      <Button layoutX="22.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToUserManagement" prefHeight="164.0" prefWidth="169.0" text="User Management" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="216.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToGoal2" prefHeight="164.0" prefWidth="169.0" text="Goal 2" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="417.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToGoal3" prefHeight="164.0" prefWidth="169.0" text="Goal 3" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="417.0" layoutY="327.0" mnemonicParsing="false" onAction="#logOut" prefHeight="59.0" prefWidth="169.0" text="LogOut" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
