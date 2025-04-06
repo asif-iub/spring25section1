@@ -43,6 +43,14 @@ public class HelloController {
             ageCB.getItems().add(i);
 
         tableView.getItems().addAll(UserManager.userList);
+
+        if (EditUserController.action == 0) {
+            messageLabel.setText("User updated successfully!");
+        }
+        else if (EditUserController.action == 1) {
+            messageLabel.setText("User update cancelled!");
+        }
+
     }
 
     @FXML
@@ -130,5 +138,26 @@ public class HelloController {
     @FXML
     public void logout(ActionEvent event) throws IOException {
         SceneSwitcher.switchTo("login");
+    }
+
+    @FXML
+    public void editUser(ActionEvent actionEvent) throws IOException {
+//        int index = tableView.getSelectionModel().getSelectedIndex();
+        User u    = tableView.getSelectionModel().getSelectedItem();
+        if (u == null)
+            return;
+//        userToEdit = u;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("edit-user.fxml"));
+        Parent root = loader.load();
+
+        EditUserController controller = loader.getController();
+        controller.setUser(u);
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) tableView.getScene().getWindow();
+        stage.setScene(scene);
+
+
+//        SceneSwitcher.switchTo("edit-user");
     }
 }

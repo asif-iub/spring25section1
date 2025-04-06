@@ -9,19 +9,19 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Goal2Controller
+public class Goal2Controller extends BaseController
 {
     @javafx.fxml.FXML
     public void initialize() {
     }
 
-    @javafx.fxml.FXML
-    public void goBack(ActionEvent actionEvent) throws IOException {
-        SceneSwitcher.switchTo("dashboard");
-    }
-
-    @javafx.fxml.FXML
-    public void logOut(ActionEvent actionEvent) throws IOException{
-        SceneSwitcher.switchTo("login");
-    }
+//    @javafx.fxml.FXML
+//    public void goBack(ActionEvent actionEvent) throws IOException {
+//        SceneSwitcher.switchTo("dashboard");
+//    }
+//
+//    @javafx.fxml.FXML
+//    public void logOut(ActionEvent actionEvent) throws IOException{
+//        SceneSwitcher.switchTo("login");
+//    }
 }

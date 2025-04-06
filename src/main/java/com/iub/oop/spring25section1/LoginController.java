@@ -32,6 +32,7 @@ public class LoginController {
                     && passwordField.getText().equals(u.getPassword())) {
                 messageLabel.setText("Log in successful!");
                 // Now switch to the other scene
+//                EditUserController.action = 1;
                 SceneSwitcher.switchTo("dashboard");
 //                Parent root = FXMLLoader.load(
 //                        getClass().getResource("dashboard.fxml")
