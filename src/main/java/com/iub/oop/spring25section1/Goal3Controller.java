@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -19,14 +20,13 @@ public class Goal3Controller extends BaseController {
 
     @javafx.fxml.FXML
     public void loadFromFile(ActionEvent actionEvent) {
-        try (FileReader reader = new FileReader("data.txt");) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("data.txt"));) {
             String content = "";
             while(true) {
-                int i = reader.read();
-                if (i == -1)
+                String line = reader.readLine();
+                if (line == null)
                     break;
-
-                content = content + (char) i;
+                content += line + "\n";
             }
             textArea.setText(content);
         }
