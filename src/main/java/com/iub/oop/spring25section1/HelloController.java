@@ -159,6 +159,7 @@ public class HelloController {
     @FXML
     public void saveToFile(ActionEvent actionEvent) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("data.bin"))) {
+            outputStream.writeObject(tableView.getItems().size());
             for (User u: tableView.getItems()) {
                 outputStream.writeObject(u);
             }
@@ -172,10 +173,13 @@ public class HelloController {
     @FXML
     public void loadFromFile(ActionEvent actionEvent) {
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("data.bin"));) {
-            while (true) {
+            int size = (int) inputStream.readObject();
+//            while (true) {
+            for (int i = 0; i < size; i++) {
                 User u = (User) inputStream.readObject();
                 tableView.getItems().add(u);
             }
+            messageLabel.setText("Data loaded from file");
         } catch (EOFException e) {
             messageLabel.setText("Data loaded from file");
         } catch (ClassNotFoundException e) {
