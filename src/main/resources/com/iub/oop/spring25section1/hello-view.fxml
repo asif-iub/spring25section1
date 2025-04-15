@@ -69,11 +69,28 @@
          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
       </columnResizePolicy>
    </TableView>
-   <Button onAction="#editUser" text="Edit User">
-      <font>
-         <Font size="24.0" />
-      </font>
-   </Button>
+   <HBox alignment="CENTER" spacing="20.0">
+      <children>
+         <Button onAction="#loadFromFile" text="Load from File">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Button>
+         <Button onAction="#editUser" text="Edit User">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Button>
+         <Button onAction="#saveToFile" text="Save to File">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Button>
+      </children>
+      <padding>
+         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      </padding>
+   </HBox>
    <HBox alignment="CENTER" spacing="10.0">
       <children>
          <Button onAction="#summary" text="Summary">

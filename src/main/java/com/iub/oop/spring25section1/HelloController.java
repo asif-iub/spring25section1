@@ -3,14 +3,13 @@ package com.iub.oop.spring25section1;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
 
 public class HelloController {
     @FXML
@@ -46,8 +45,7 @@ public class HelloController {
 
         if (EditUserController.action == 0) {
             messageLabel.setText("User updated successfully!");
-        }
-        else if (EditUserController.action == 1) {
+        } else if (EditUserController.action == 1) {
             messageLabel.setText("User update cancelled!");
         }
 
@@ -61,11 +59,9 @@ public class HelloController {
 
             tableView.getItems().clear();
             for (User u : UserManager.userList) {
-                if (u.getAge() < maxAge)
-                    tableView.getItems().add(u);
+                if (u.getAge() < maxAge) tableView.getItems().add(u);
             }
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             messageLabel.setText("Invalid input for filter!");
         }
     }
@@ -128,7 +124,7 @@ public class HelloController {
 
         // average password length
         int sumLength = 0;
-        for (User u: UserManager.userList) {
+        for (User u : UserManager.userList) {
             sumLength += u.getPassword().length();
         }
         summaryLabel.setText("Average password length is " + (double) sumLength / UserManager.userList.size());
@@ -143,9 +139,8 @@ public class HelloController {
     @FXML
     public void editUser(ActionEvent actionEvent) throws IOException {
 //        int index = tableView.getSelectionModel().getSelectedIndex();
-        User u    = tableView.getSelectionModel().getSelectedItem();
-        if (u == null)
-            return;
+        User u = tableView.getSelectionModel().getSelectedItem();
+        if (u == null) return;
 //        userToEdit = u;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("edit-user.fxml"));
         Parent root = loader.load();
@@ -159,5 +154,36 @@ public class HelloController {
 
 
 //        SceneSwitcher.switchTo("edit-user");
+    }
+
+    @FXML
+    public void saveToFile(ActionEvent actionEvent) {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("data.bin"))) {
+            for (User u: tableView.getItems()) {
+                outputStream.writeObject(u);
+            }
+            messageLabel.setText("Data saved to file.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            messageLabel.setText("Could not save data to file.");
+        }
+    }
+
+    @FXML
+    public void loadFromFile(ActionEvent actionEvent) {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("data.bin"));) {
+            while (true) {
+                User u = (User) inputStream.readObject();
+                tableView.getItems().add(u);
+            }
+        } catch (EOFException e) {
+            messageLabel.setText("Data loaded from file");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            messageLabel.setText("Invalid file format!");
+        } catch (IOException e) {
+            e.printStackTrace();
+            messageLabel.setText("Could not load data from file");
+        }
     }
 }

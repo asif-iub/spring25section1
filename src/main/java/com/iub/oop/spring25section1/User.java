@@ -1,6 +1,8 @@
 package com.iub.oop.spring25section1;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String username;
     private String password;
     private int age;
