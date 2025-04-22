@@ -17,7 +17,7 @@ public class HelloApplication extends Application {
         SceneSwitcher.stage = stage;
 
         FXMLLoader fxmlLoader = new FXMLLoader(
-                HelloApplication.class.getResource("login.fxml")
+                HelloApplication.class.getResource("charts.fxml")
         );
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hello!");
